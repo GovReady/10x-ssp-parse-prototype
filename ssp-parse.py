@@ -3,6 +3,7 @@ import string
 
 import gensim
 import nltk
+import ssl
 from docx import Document
 from docx.document import Document as _Document
 from docx.oxml.table import CT_Tbl
@@ -11,8 +12,18 @@ from docx.table import Table, _Cell
 from docx.text.paragraph import Paragraph
 from nltk.tokenize import word_tokenize
 
-nltk.download('punkt')
+
+# Config
 TARGET_DOC = 'ssp.docx'
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+nltk.download('punkt')
+
 
 
 def iter_block_items(parent):
@@ -97,6 +108,7 @@ def parse_implementation_table(table):
 
 
 if __name__ == '__main__':
+
     # Start parsing the doc...
     doc = Document(docx=TARGET_DOC)
 
