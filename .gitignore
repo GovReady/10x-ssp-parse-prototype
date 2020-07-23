@@ -7,3 +7,10 @@ output.json
 *.index
 .DS_Store
 matrix.csv
+
+# python virtualenv
+venv
+
+# Emacs
+*~
+\#*\#
